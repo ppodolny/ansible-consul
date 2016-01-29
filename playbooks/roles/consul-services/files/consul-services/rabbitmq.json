@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "rabbitmq",
+        "port": 15672,
+        "tags": [ "rabbitmq"],
+        "check": {
+            "script": "curl -q http://guest:guest@localhost:15672/api/aliveness-test/%2F| grep 'ok'",
+            "interval": "5s"
+        }
+    }
+}

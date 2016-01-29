@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "spark master",
+        "port": 8080,
+        "tags": [ "spark"],
+        "check": {
+            "script": "curl -sI localhost:8080|grep '200 OK' 2>/dev/null && exit 0 || exit 2",
+            "interval": "10s"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+---
+# vars file for aws_bootstrap
+region: us-east-1
+instance_type: i2.8xlarge
+count: 1
+vpc_id: vpc-0e1fed6a  
+vpc_subnet_id: subnet-63b1b514
+ebs_vol_size: 1024
+root_device_path: /dev/sda1
+ubuntu_image: ami-d05e75b8

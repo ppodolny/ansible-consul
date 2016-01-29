@@ -1,0 +1,60 @@
+---
+
+- name: Install system packages Deb
+  apt: name={{ item }} 
+  with_items:
+    - unzip
+    - dnsmasq
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install system packages RH
+  yum: name={{ item }} 
+  with_items:
+    - unzip
+    - dnsmasq
+  when: ansible_distribution == 'RedHat' or ansible_distribution == 'CentOS' or ansible_distribution == 'Amazon'
+
+- name: Download Consul
+  get_url:
+    url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_linux_amd64.zip
+    dest: /tmp/consul.zip
+    validate_certs: no
+
+- name: Download Consul UI
+  get_url:
+    url: https://releases.hashicorp.com/consul/{{ consul_version }}/consul_{{ consul_version }}_web_ui.zip
+    dest: /tmp/consul-ui.zip
+    validate_certs: no
+
+- name: Create Consul folders
+  file: path={{ item }} state=directory mode=755
+  with_items:
+    - "{{ consul_config_dir }}"
+    - "{{ consul_data_dir }}"
+    - "{{ consul_ui_dir }}"
+  
+
+- name: Extract Consul
+  command: unzip -n -d /bin /tmp/consul.zip creates=/bin/consul
+  
+
+- name: Extract Consul UI
+  command: unzip -n -d "{{ consul_ui_dir }}" /tmp/consul-ui.zip
+  
+
+- name: Create Consul Client Config
+  template: src=consul-client.json dest={{ consul_config_dir }}/consul.json
+  notify:
+    - restart consul
+  
+
+- name: Install consul-server upstart config
+  template: src=consul-server.conf dest=/etc/init/consul-server.conf
+  
+
+- include: consul-services.yml
+
+- name: Configure Dnsmasq
+  copy: content='server=/consul/127.0.0.1#8600' dest=/etc/dnsmasq.d/10-consul
+  notify:
+    - restart dnsmasq

@@ -1,0 +1,9 @@
+{
+    "service": {
+        "name": "none",
+        "check": {
+            "script": "exit 0",
+            "interval": "10s"
+        }
+    }
+}

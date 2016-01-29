@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "resourcemanager",
+        "port": 8088,
+        "tags": ["mapr", "resourcemanager"],
+        "check": {
+            "script": "curl -q  http://localhost:8088/cluster/cluster 2> /dev/null | egrep -o STARTED &>/dev/null || exit 2",
+            "interval": "10s"
+        }
+    }
+}

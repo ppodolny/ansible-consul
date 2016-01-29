@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "webserver",
+        "port": 8888,
+        "tags": ["nginx", "reverse-proxy"],
+        "check": {
+            "script": "curl localhost:8888 > /dev/null 2>&1 || exit 2",
+            "interval": "10s"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "mysql",
+        "port": 3306,
+        "tags": ["mysql"],
+        "check": {
+            "script": "mysql -u {{ mysql_admin }} -p{{mysql_pass}} 'show databases' &>/dev/null || exit 2",
+            "interval": "10s"
+        }
+    }
+}

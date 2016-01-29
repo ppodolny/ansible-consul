@@ -1,0 +1,11 @@
+{
+    "service": {
+        "name": "nfs",
+        "port": 2049,
+        "tags": ["mapr", "nfsserver"],
+        "check": {
+            "script": "showmount -e localhost &> /dev/null || exit 2",
+            "interval": "10s"
+        }
+    }
+}

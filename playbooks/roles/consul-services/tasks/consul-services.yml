@@ -1,0 +1,7 @@
+---
+- name: Create Consul Services Dir
+  file: path={{ consul_services_dir }} state=directory
+
+- name: Install Consul Services
+  copy: src=consul-services/{{ consul_service }}.json dest={{ consul_services_dir }}/{{ consul_service }}.json mode=0644 owner=root
+  notify: restart consul

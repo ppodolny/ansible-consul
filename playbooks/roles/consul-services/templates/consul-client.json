@@ -1,0 +1,19 @@
+{
+  "data_dir": "{{ consul_data_dir }}",
+  "dns_config": {
+    "allow_stale": true,
+    "max_stale": "5s",
+    "enable_truncate": true
+  },
+  "encrypt": "{{ consul_encryption_key }}",
+  "disable_remote_exec": true,
+  "disable_update_check": true,
+  "log_level": "WARN",
+  "datacenter": "{{ consul_datacenter }}",
+  "start_join": {{ consul_quorum }},
+  "server": false,
+  "ui_dir": "{{ consul_ui_dir }}",
+  "client_addr": "0.0.0.0",
+  "statsd_addr": "statsd:8125",
+  "statsite_prefix": "consul_{{ consul_datacenter }}"
+}

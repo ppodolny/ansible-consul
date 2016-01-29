@@ -1,0 +1,4 @@
+[cluster]
+{% for instance in ec2_consul_cluster.instances %}
+{{instance.private_ip}} instance_id={{instance.id}}
+{% endfor %}

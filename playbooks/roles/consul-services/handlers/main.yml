@@ -1,0 +1,11 @@
+---
+ 
+- name: restart dnsmasq
+  service: name=dnsmasq state=restarted enabled=yes
+
+- name: restart consul
+  service: name=consul-server state=restarted enabled=yes
+
+- name: reload consul config
+  sudo: yes
+  command: pkill -1 consul
